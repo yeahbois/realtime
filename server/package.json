@@ -1,0 +1,25 @@
+{
+  "name": "gemini-live-replica-server",
+  "version": "1.0.0",
+  "description": "Node.js Orchestrator & LiveKit WebRTC Server",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@livekit/agents": "^0.8.0",
+    "@livekit/rtc-node": "^0.1.0",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.26.2",
+    "livekit-server-sdk": "^2.1.2",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/ws": "^8.5.10",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}
