@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
-import { cli } from '@livekit/agents';
+import { Worker, WorkerOptions } from '@livekit/agents';
 import { getToken } from './controllers/auth.controller.js';
-import { agentOptions } from './livekit-agent.js';
+import { fileURLToPath } from 'node:url';
 import 'dotenv/config';
 
 const fastify = Fastify({
@@ -18,8 +18,13 @@ const start = async () => {
     console.log(`Server listening on port ${port}`);
 
     // Start LiveKit Agent Worker
-    // This will start the worker that listens for jobs from the LiveKit server
-    cli.runWorker(agentOptions);
+    const agentPath = fileURLToPath(import.meta.resolve('./livekit-agent.js'));
+    const agentOptions = new WorkerOptions({
+      agent: agentPath,
+    });
+    const worker = new Worker(agentOptions);
+    await worker.run();
+    console.log('LiveKit Agent Worker started successfully');
 
   } catch (err) {
     fastify.log.error(err);
@@ -28,3 +33,4 @@ const start = async () => {
 };
 
 start();
+
